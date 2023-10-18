@@ -3,6 +3,8 @@ const canvasContext = canvas.getContext("2d");
 const pacmanFrames = document.getElementById("animation");
 const ghostFrames = document.getElementById("ghosts");
 
+let isGameLost = false;
+
 let createRect = (x, y, width, height, color) => {
     canvasContext.fillStyle = color;
     canvasContext.fillRect(x, y, width, height);
@@ -103,8 +105,12 @@ let restartPacmanAndGhosts = () => {
 
 let onGhostCollision = () => {
     lives--;
-    restartPacmanAndGhosts();
-    if (lives == 0) {
+    if (lives === 0) {
+        isGameLost = true; 
+        clearInterval(gameInterval); 
+        alert("You lost! Game over."); 
+    } else {
+        restartPacmanAndGhosts();
     }
 };
 
@@ -166,12 +172,15 @@ let drawScore = () => {
 let draw = () => {
     canvasContext.clearRect(0, 0, canvas.width, canvas.height);
     createRect(0, 0, canvas.width, canvas.height, "black");
-    drawWalls();
-    drawFoods();
-    drawGhosts();
-    pacman.draw();
-    drawScore();
-    drawRemainingLives();
+    
+    if (!isGameLost) {
+        drawWalls();
+        drawFoods();
+        drawGhosts();
+        pacman.draw();
+        drawScore();
+        drawRemainingLives();
+    }
 };
 
 let drawWalls = () => {
