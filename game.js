@@ -93,9 +93,12 @@ let gameLoop = () => {
 
 let gameInterval = setInterval(gameLoop, 1000 / fps);
 
+
 let restartPacmanAndGhosts = () => {
     createNewPacman();
-    createGhosts();
+    if (ghosts.length < ghostCount) {
+        createGhosts();
+    }
 };
 
 let onGhostCollision = () => {
@@ -228,7 +231,7 @@ let drawWalls = () => {
 
 let createGhosts = () => {
     ghosts = [];
-    for (let i = 0; i < ghostCount * 2; i++) {
+    for (let i = 0; i < ghostCount; i++) { // Only create up to 4 ghosts
         let newGhost = new Ghost(
             9 * oneBlockSize + (i % 2 == 0 ? 0 : 1) * oneBlockSize,
             10 * oneBlockSize + (i % 2 == 0 ? 0 : 1) * oneBlockSize,
