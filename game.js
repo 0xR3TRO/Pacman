@@ -1,3 +1,4 @@
+// Scripts and functions on this page are the creation of 0xR3TR0. All rights reserved.
 const canvas = document.getElementById("canvas");
 const canvasContext = canvas.getContext("2d");
 const pacmanFrames = document.getElementById("animation");
